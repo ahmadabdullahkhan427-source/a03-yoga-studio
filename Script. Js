@@ -1,0 +1,70 @@
+// A03 Yoga Studio - price estimator + booking list
+(function () {
+  const form = document.getElementById('bookingForm');
+  if (!form) return;
+  const KEY = 'a03_bookings';
+  const RATE = 500;
+  const $ = (id) => document.getElementById(id);
+
+  $('date').min = new Date().toISOString().split('T')[0];
+
+  function price(n) {
+    return Math.round(n * RATE * (n >= 10 ? 0.8 : 1));
+  }
+  function load() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; }
+  }
+  function save(list) {
+    try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {}
+  }
+  function updateEstimate() {
+    const n = parseInt($('sessions').value, 10);
+    $('estimate').textContent = 'Estimated price: ₹' + (n >= 1 && n <= 12 ? price(n) : 0);
+  }
+  function render() {
+    const list = load(), ul = $('bookingList');
+    ul.textContent = '';
+    let total = 0;
+    list.forEach((b, i) => {
+      total += b.cost;
+      const li = document.createElement('li');
+      const span = document.createElement('span');
+      span.textContent = b.cls + ' | ' + b.sessions + ' session(s) from ' + b.date + ' | ₹' + b.cost;
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'btn small'; btn.textContent = 'Remove';
+      btn.setAttribute('aria-label', 'Remove ' + b.cls + ' booking');
+      btn.addEventListener('click', () => { list.splice(i, 1); save(list); render(); });
+      li.append(span, btn);
+      ul.appendChild(li);
+    });
+    $('total').textContent = 'Total: ₹' + total;
+  }
+  function validate() {
+    const errs = {};
+    const name = $('name').value.trim(), email = $('email').value.trim(), phone = $('phone').value.trim();
+    const n = parseInt($('sessions').value, 10), d = $('date').value;
+    if (name.length < 2) errs.name = 'Please enter your full name.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.email = 'Enter a valid email address.';
+    if (!/^\d{10}$/.test(phone)) errs.phone = 'Phone must be exactly 10 digits.';
+    if (!d || d < $('date').min) errs.date = 'Choose today or a future date.';
+    if (!(n >= 1 && n <= 12)) errs.sessions = 'Sessions must be between 1 and 12.';
+    if (!$('consent').checked) errs.consent = 'Please tick the consent box.';
+    ['name', 'email', 'phone', 'date', 'sessions', 'consent'].forEach((k) => {
+      $(k + 'Err').textContent = errs[k] || '';
+    });
+    return Object.keys(errs).length === 0;
+  }
+
+  $('sessions').addEventListener('input', updateEstimate);
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+    const n = parseInt($('sessions').value, 10);
+    const list = load();
+    list.push({ cls: $('cls').value, sessions: n, date: $('date').value,
+                level: form.level.value, cost: price(n) });
+    save(list); render(); form.reset(); updateEstimate();
+  });
+  $('clearAll').addEventListener('click', () => { save([]); render(); });
+  updateEstimate(); render();
+})();
