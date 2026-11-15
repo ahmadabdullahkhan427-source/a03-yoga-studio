@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a Class or Send an Enquiry | A03 Yoga Studio</title>
+<meta name="description" content="Choose a yoga class, see an instant price estimate and send your booking enquiry to A03 Yoga Studio.">
+<meta name="keywords" content="yoga studio, yoga class booking, yoga enquiry form">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header>
+  <div class="bar">
+    <a class="logo" href="index.html">A03 Yoga Studio</a>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#timetable">Timetable</a></li>
+        <li><a href="index.html#pricing">Pricing</a></li>
+        <li><a href="booking.html" aria-current="page">Book / Enquire</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <section>
+    <h1>Book a class or enquire</h1>
+    <div class="booking-grid">
+      <form id="bookingForm" novalidate>
+        <div><label for="name">Full name</label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
+          <span class="err" id="nameErr" aria-live="polite"></span></div>
+        <div><label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+          <span class="err" id="emailErr" aria-live="polite"></span></div>
+        <div><label for="phone">Phone (10 digits)</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" required>
+          <span class="err" id="phoneErr" aria-live="polite"></span></div>
+        <div><label for="date">Preferred start date</label>
+          <input type="date" id="date" name="date" required>
+          <span class="err" id="dateErr" aria-live="polite"></span></div>
+        <div><label for="cls">Class</label>
+          <select id="cls" name="cls">
+            <option>Morning Hatha</option><option>Vinyasa Flow</option>
+            <option>Power Yoga</option><option>Yin &amp; Meditation</option>
+          </select></div>
+        <div><label for="sessions">Number of sessions (1 to 12)</label>
+          <input type="number" id="sessions" name="sessions" min="1" max="12" value="1" required>
+          <span class="err" id="sessionsErr" aria-live="polite"></span></div>
+        <fieldset><legend>Experience level</legend>
+          <label><input type="radio" name="level" value="Beginner" checked> Beginner</label>
+          <label><input type="radio" name="level" value="Intermediate"> Intermediate</label>
+          <label><input type="radio" name="level" value="Advanced"> Advanced</label>
+        </fieldset>
+        <div><label for="note">Message (optional)</label>
+          <textarea id="note" name="note" rows="3"></textarea></div>
+        <label class="check"><input type="checkbox" id="consent" required> I agree to be contacted about this booking.</label>
+        <span class="err" id="consentErr" aria-live="polite"></span>
+        <p class="estimate" id="estimate" aria-live="polite">Estimated price: ₹500</p>
+        <button class="btn" type="submit">Add to my booking list</button>
+      </form>
+      <aside aria-labelledby="listHead">
+        <h2 id="listHead">My booking list</h2>
+        <ul id="bookingList"></ul>
+        <p id="total" class="estimate">Total: ₹0</p>
+        <button class="btn small" type="button" id="clearAll">Clear all</button>
+        <p><small>Bookings are saved only in this browser (Local Storage). We do not collect your data on a server.</small></p>
+      </aside>
+    </div>
+  </section>
+</main>
+<footer><p>&copy; 2026 A03 Yoga Studio. Practice-project website.</p></footer>
+<script src="script.js"></script>
+</body>
+</html>
