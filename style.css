@@ -1,0 +1,49 @@
+/* A03 Yoga Studio - custom CSS (Flexbox + Grid, no framework) */
+:root{
+  --sage:#4A7C59; --forest:#2F4F3E; --cream:#FAF6EE; --clay:#A8512B; --ink:#222222; --white:#ffffff;
+  --head:'Playfair Display',Georgia,serif; --body:'Inter',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--cream);line-height:1.6}
+h1,h2,h3{font-family:var(--head);color:var(--forest);line-height:1.2}
+a{color:var(--forest)}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:8px;z-index:9}
+header{background:var(--forest);color:var(--white)}
+.bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:14px 5%}
+.logo{font-family:var(--head);font-size:1.4rem;color:var(--white);text-decoration:none}
+nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0}
+nav a{color:var(--white);text-decoration:none;padding:6px 2px;border-bottom:2px solid transparent}
+nav a:hover,nav a:focus,nav a[aria-current]{border-bottom-color:var(--white)}
+.hero{display:grid;grid-template-columns:1fr;gap:24px;align-items:center;padding:40px 5%}
+.hero svg{width:100%;max-width:280px;margin:auto}
+.btn{display:inline-block;background:var(--clay);color:var(--white);padding:12px 24px;border:0;border-radius:6px;font:inherit;font-weight:600;text-decoration:none;cursor:pointer;transition:transform .25s ease,background-color .25s ease}
+.btn:hover,.btn:focus{background:#8a3f1f;transform:translateY(-2px)}
+section{padding:32px 5%}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:var(--white)}
+caption{text-align:left;font-weight:600;padding:8px 0}
+th,td{border:1px solid #d9d2c3;padding:10px;text-align:left}
+th{background:var(--sage);color:var(--white)}
+.cards{display:grid;grid-template-columns:1fr;gap:16px}
+.card{background:var(--white);border-top:4px solid var(--sage);border-radius:6px;padding:18px}
+.price{font-size:1.6rem;font-weight:700;color:var(--clay)}
+form{display:grid;gap:14px;max-width:640px}
+label,legend{font-weight:600}
+input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],select,textarea{width:100%;padding:10px;border:1px solid #777;border-radius:6px;font:inherit;background:var(--white)}
+fieldset{border:1px solid #bbb;border-radius:6px}
+fieldset label,.check{font-weight:400;margin-right:14px}
+.err{color:#b00020;font-size:.9rem;min-height:1.1em}
+.estimate{background:var(--white);border-left:4px solid var(--clay);padding:12px;font-weight:600}
+#bookingList{list-style:none;padding:0;display:grid;gap:10px}
+#bookingList li{display:flex;justify-content:space-between;gap:10px;background:var(--white);padding:12px;border-radius:6px}
+.small{padding:6px 12px;font-size:.9rem}
+footer{background:var(--forest);color:var(--white);text-align:center;padding:20px 5%}
+:focus-visible{outline:3px solid #ffbf47;outline-offset:2px}
+/* Media query 1: tablet */
+@media (min-width:600px){.cards{grid-template-columns:repeat(2,1fr)}}
+/* Media query 2: desktop */
+@media (min-width:992px){
+  .hero{grid-template-columns:1.2fr 1fr;padding:64px 8%}
+  .cards{grid-template-columns:repeat(3,1fr)}
+  .booking-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:start}
+}
